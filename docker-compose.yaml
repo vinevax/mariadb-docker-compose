@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  mariadb:
+    image: mariadb:10
+    restart: unless-stopped
+    volumes:
+      - ./data:/var/lib/mysql
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: true
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+      - PMA_USER=root
